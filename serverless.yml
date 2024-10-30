@@ -1,0 +1,56 @@
+# "org" ensures this Service is used with the correct Serverless Framework Access Key.
+org: inzinthardik
+# "app" enables Serverless Framework Dashboard features and sharing them with other Services.
+app: inzint-email-service
+# "service" is the name of this project. This will also be added to your AWS resource names.
+service: inzint-email-service
+
+provider:
+
+  name: aws
+  runtime: nodejs14.x
+  stage: dev
+  region: ap-south-1
+  
+  
+  environment: 
+    OUTLOOK_EMAIL: ${env:OUTLOOK_EMAIL}
+    OUTLOOK_PASSWORD: ${env:OUTLOOK_PASSWORD}
+
+  iamRoleStatements:
+   - Effect: Allow
+     Action:
+        - ses:SendEmail
+        - ses:SendRawEmail
+     Resource: 
+        - arn:aws:ses:ap-south-1:440744214583:identity/system-emails@inzint.com  
+
+functions:
+  hello:
+    handler: handler.hello
+    events:
+      - httpApi:
+          path: /
+          method: get
+
+    
+  sendEmail: 
+    handler: email.sendEmail
+    events:
+      - http:
+          path: /send-email
+          method: post
+          private: true 
+    timeout: 600
+
+    
+            
+
+         
+package:
+  excludeDevDependencies: true
+  exclude:
+    - .gitignore
+    - .git/**    
+
+

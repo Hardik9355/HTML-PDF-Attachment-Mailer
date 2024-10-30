@@ -1,0 +1,22 @@
+{
+  "name": "inzint-email-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "deploy:dev": "NODE_ENV=development serverless deploy --aws-profile inzint-internal --stage dev",
+    "offline": "NODE_ENV=development sls offline start --stage offline",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "aws-sdk": "^2.1462.0",
+    "chrome-aws-lambda": "^10.1.0",
+    "nodejs-nodemailer-outlook": "^1.2.4",
+    "puppeteer-core": "^10.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0",
+    "serverless-dotenv-plugin": "^6.0.0"
+  }
+}
